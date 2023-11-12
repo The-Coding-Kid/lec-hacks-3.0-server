@@ -1,2 +1,2 @@
-import openai
-print(openai.__version__)
+import test2
+print(test2.__version__)
