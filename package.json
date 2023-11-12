@@ -1,0 +1,12 @@
+{
+  "name": "lec-3.0-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/The-Coding-Kid/lec-hacks-3.0-server.git",
+  "author": "Veerrohit Veeravadivel <veerrohitv08@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "openai": "^4.17.4"
+  }
+}
