@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-def scrape_website(url):
+
+def scraper(url):
     
     # Make a GET request to the website
     response = requests.get(url)
@@ -21,13 +22,7 @@ def scrape_website(url):
         cleaned_text = ' '.join(all_text_without_newlines.split())
 
         # Print or do something with the cleaned text
-        print(cleaned_text)
+        return cleaned_text
     else:
         print(f"Error: Unable to fetch the website. Status code: {response.status_code}")
 
-
-url = input()
-
-# Example usage:
-website_url = url
-scrape_website(website_url)

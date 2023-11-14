@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+# send a get request to /
 import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
+CORS(app)
 load_dotenv()
 
 @app.route('/')
@@ -35,11 +38,36 @@ def api():
             # Print or do something with the cleaned text
             print(cleaned_text)
         else:
-            print(f"Error: Unable to fetch the website. Status code: {response.status_code}")
+            return "3/5"
 
     # Example usage:
+    
+    from apify_client import ApifyClient
+    client = ApifyClient(token='API_KEY')
+
+    from test2 import summarize
+    from scraper import scraper
+
+    url = request.json['url1']
+
+    run_input = {
+        "queries": summarize(scraper(url)),
+        "maxPagesPerQuery": 1,
+        
+    }
+
+    # Run the Actor and wait for it to finish
+    # .call method waits infinitely long using smart polling
+    # Get back the run API object
+    run = client.actor("apify/google-search-scraper").call(run_input=run_input)
+    website_url2 = ""
+    # Fetch and print Actor results from the run's dataset (if there are any)
+    for item in client.dataset(run["defaultDatasetId"]).iterate_items():
+        print(item['organicResults'][5]['url'])
+        website_url2 = item['organicResults'][5]['url']
+    
+    # this should work try running the server
     website_url1 = request.json['url1']
-    website_url2 = request.json['url2']
     print(website_url1)
     print(website_url2)
     
@@ -62,3 +90,5 @@ def api():
     
 if __name__ == '__main__':
     app.run()
+
+# send it to /api
